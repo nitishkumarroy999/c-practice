@@ -1,6 +1,6 @@
 #include <iostream>
 
 int main() {
-    std::cout << "HEllo ji kla";
+    std::cout << "HEllo ji ";
     return 0;
 }
