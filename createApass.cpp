@@ -2,7 +2,7 @@
 #include<string.h>
 using namespace std;
 int main()
-{
+{ int 
     char pass[20], ePass[20];
     int numOne, numTwo, sum;
     cout<<"Create a password: ";
