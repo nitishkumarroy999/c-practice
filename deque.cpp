@@ -35,7 +35,7 @@ int main()
 
 	cout << "\ngquiz.pop_back() : ";
 	gquiz.pop_back();
-	showdq(gquiz);
+	showdq(gquiz);     
 
 	return 0;
 }
