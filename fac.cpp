@@ -4,7 +4,7 @@ using namespace std;
 int factorial(int n);
 
 int main() {
-
+// nkr codes
   int n;
 
   cout << "Enter a positive integer: ";
