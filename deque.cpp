@@ -1,4 +1,4 @@
-// CPP Program to implement Deque in STL
+// CPP Program to implement Deque in STL(standard templets library)
 #include <deque>
 #include <iostream>
 
