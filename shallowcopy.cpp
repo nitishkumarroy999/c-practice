@@ -1,5 +1,5 @@
 // C++ program for the above approach
-//Nkr codes
+// Nkr codes
 #include <iostream>
 using namespace std;
 
