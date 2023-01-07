@@ -16,4 +16,4 @@ int main() {
   cout << "You " << result << " the exam.";
 
   return 0;
-}
+} 
