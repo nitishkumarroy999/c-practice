@@ -32,5 +32,6 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "workbench.preferredLightColorTheme": "Default Light+"
 }
