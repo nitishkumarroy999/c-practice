@@ -70,3 +70,5 @@ int main()
 	return 0;
 }
 // This code is contributed by Nkr codes
+// add 2 numbers in c++ ?
+
