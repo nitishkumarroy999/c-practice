@@ -1,58 +1,79 @@
-// C++ program to find celebrity
-#include <iostream>
+#include<iostream>
+#include<vector>
 #include<stack>
-#include <list>
 using namespace std;
 
-// Max # of persons in the party
-#define N 8
-
-// Person with 2 is celebrity
-bool MATRIX[N][N] = { { 0, 0, 1, 0 },
-					{ 0, 0, 1, 0 },
-					{ 0, 0, 0, 0 },
-					{ 0, 0, 1, 0 } };
-
-bool knows(int a, int b) { return MATRIX[a][b]; }
-
-// Returns -1 if celebrity
-// is not present. If present,
-// returns id (value from 0 to n-1).
-int findCelebrity(int n)
+bool isCelebrity(int p, vector<vector<int>>&a)
 {
-	// the graph needs not be constructed
-	// as the edges can be found by
-	// using knows function
+	int n=a.size();
+	//row check
+	for(int i=0;i<n;i++)
+	{
+		if(a[p][i]==1)return false;
+	}
+	//col check
+	for(int j=0;j<n;j++)
+	{
+		if(j==p)continue;
+		if(a[j][p]==0)return false;
+	}
 
-	// degree array;
-	int  indegree[n] = { 0 }, outdegree[n] = { 0 };
+	//after both condition satisfied
+	return true;
+}
 
-	// query for all edges
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			int x = knows(i, j);
+int findCelebrity(vector<vector<int>>&a)
+{
+	int n=a.size();
 
-			// set the degrees
-			outdegree[i] += x;
-			indegree[j] += x;
+	stack<int>st;
+	//stack contain possible celebrity
+	for(int i=0;i<n;i++)st.push(i);
+
+	//elmination start
+	while(st.size()>1)
+	{
+		int firstPerson=st.top();
+		st.pop();
+		int secondPerson=st.top();
+		st.pop();
+
+		if(a[firstPerson][secondPerson]==1)
+		{
+			// chance of first person to become celebrity is ended
+			st.push(secondPerson);
+		}
+		else
+		{
+			//first does not know second
+			// so second eliminated from race of celebrity
+			st.push(firstPerson);
 		}
 	}
 
-	// find a person with indegree n-1
-	// and out degree 0
-	for (int i = 0; i < n; i++)
-		if (indegree[i] == n - 1 && outdegree[i] == 0)
-			return i;
-
+	int potentialCelebrity=st.top();
+	bool chk=isCelebrity(potentialCelebrity,a);
+	if(chk==true)return potentialCelebrity;
+	//otherwise
 	return -1;
+
 }
 
-// Driver code
 int main()
 {
-	int n = 4;
-	int id = findCelebrity(n);
-	id == -1 ? cout << "No celebrity"
-			: cout << "Celebrity ID " << id;
-	return 0;
+	int n;
+	cin>>n;
+	vector<vector<int>>a(n,vector<int>(n));
+
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cin>>a[i][j];
+		}
+	}
+
+	int ans=findCelebrity(a);
+	if(ans==-1)cout<<"No Celebrity"<<endl;
+	else cout<<ans<<endl;
 }
