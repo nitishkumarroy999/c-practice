@@ -1,49 +1,58 @@
+#include <iostream>
+#include <list>
+using namespace std;
 
+// Max # of persons in the party
+#define N 4
 
-// The problem with this code is that the findCelebrity function does not have a return statement at the end. This means that if the celebrity is not found, the function will not return -1 as it should. To fix this, we can add a return statement at the end of the function:
-#include<iostream>
-#include<vector>
-#include<stack>
+bool MATRIX[N][N] = { { 0, 0, 1, 0 },{ 0, 0, 1, 0 },{ 0, 0, 0, 0 },{ 0, 0, 1, 0 } };
 
-int findCelebrity(vector<vector<int>>&a)
+bool knows(int A, int B) 
+{ 
+    return MATRIX[A][B]; 
+    
+}
+
+int findCelebrity(int n) {
+    
+    int celebrity = -1;
+
+    // Check one by one whether the person is a celebrity or not.
+    for(int i = 0; i < n; i++) {
+        bool knowAny = false, knownToAll = true;
+
+        // Check whether person with id 'i' knows any other person.
+        for(int j = 0; j < n; j++) {
+            if(knows(i, j)) {
+                knowAny = true;
+                break;
+            }
+        }
+
+        // Check whether person with id 'i' is known to all the other person.
+        for(int j = 0; j < n; j++) {
+            if(i != j and !knows(j, i)) {
+                knownToAll = false;
+                break;
+            }
+        }
+
+        if(!knowAny && knownToAll) {
+            celebrity = i;
+            break;
+        }
+    }
+
+    return celebrity;
+}
+
+// Driver code
+int main()
 {
-	int n=a.size();
+int n = 4;
+int id = findCelebrity(n);
+id == -1 ? cout << "No celebrity" : cout << "Celebrity ID " << id;
+return 0;
+}
+ 
 
-	stack<int>st;
-	//stack contain possible celebrity
-	for(int i=0;i<n;i++)st.push(i);
-
-	//elmination start
-	while(st.size()>1)
-	{
-		int firstPerson=st.top();
-		st.pop();
-		int secondPerson=st.top();
-		st.pop();
-
-		if(a[firstPerson][secondPerson]==1)
-		{
-			// chance of first person to become celebrity is ended 
-            st.push(secondPerson); 
-        } 
-        else 
-        { 
-            //first does not know second 
-            // so second eliminated from race of celebrity 
-            st.push(firstPerson); 
-
-        } 
-
-    } 
-
-    int potentialCelebrity=st.top(); 
-
-    bool chk=isCelebrity(potentialCelebrity,a); 
-
-    if(chk==true)return potentialCelebrity;   // Added return statement here to fix the problem  
-
-    //otherwise  
-
-    return -1;   // Added return statement here to fix the problem  
-
-     }
