@@ -14,7 +14,7 @@ static int kadane(int Array[], int n) {
     
     if(max_sum < current_sum)
       max_sum = current_sum;
-  }
+  } 
   return max_sum;
 }
 
